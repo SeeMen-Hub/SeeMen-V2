@@ -24,7 +24,7 @@ local Groupboxes = {
 local Elements = {
     Debug = {
         killButton = Groupboxes.Debug.LeftGroupBox:AddButton("Kill UI", function()
-            Window:Destroy()
+            Window.Parent = nil
         end)
     },
     Main = {
