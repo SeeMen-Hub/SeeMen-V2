@@ -1,0 +1,9 @@
+{
+    "robloxLsp.diagnostics.disable": [
+        "unused-local",
+        "unused-function"
+    ],
+    "robloxLsp.diagnostics.globals": [
+        "getgenv"
+    ]
+}
