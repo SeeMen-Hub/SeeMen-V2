@@ -1,31 +1,49 @@
-ui = {
-    Window = getgenv().Library:CreateWindow({
-        Title = "mspaint",
-        Footer = "version: example",
-        Icon = 95816097006870,
-        NotifySide = "Right",
-    }),
-    Tabs = {
-        Debug = ui.Window:AddTab("Debug"),
-        Main = ui.Window:AddTab("Main", "user"),
-        ["UI Settings"] = ui.Window:AddTab("UI Settings", "settings"),
+local Window = getgenv().Library:CreateWindow({
+    Title = "mspaint",
+    Footer = "version: example",
+    Icon = 95816097006870,
+    NotifySide = "Right",
+})
+
+local Tabs = {
+    Debug = Window:AddTab("Debug"),
+    Main = Window:AddTab("Main", "user"),
+    ["UI Settings"] = Window:AddTab("UI Settings", "settings"),
+}
+
+local Groupboxes = {
+    Debug = {
+        LeftGroupBox = Tabs.Debug:AddLeftGroupbox("Left Groupbox", "wrench")
     },
+    Main = {
+        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Left Groupbox", "wrench")
+    },
+    UISettings = {}
+}
 
-    DebugLeftGroupBox = ui.Tabs.Debug:AddLeftGroupbox("Left Groupbox", "wrench"),
+local Elements = {
+    Debug = {
+        killButton = Groupboxes.Debug.LeftGroupBox:AddButton("Kill UI", function()
+            Window:Destroy()
+        end)
+    },
+    Main = {
+        SpeedSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Speed Slider", {
+            Text = "Speed",
+            Default = 16,
+            Min = 0,
+            Max = 100,
+            Rounding = 0
+        })
+    },
+    UISettings = {}
+}
 
-    MainLeftGroupBox = ui.Tabs.Main:AddLeftGroupbox("Left Groupbox", "wrench"),
-
-    killButton = ui.DebugLeftGroupBox:AddButton("Kill UI", function()
-        ui.Window:Destroy()
-    end),
-
-    SpeedSlider = ui.MainLeftGroupBox:AddSlider("Speed Slider", {
-        Text = "Speed",
-        Default = 16,
-        Min = 0,
-        Max = 100,
-        Rounding = 0
-    })
+local ui = {
+    Window = Window,
+    Tabs = Tabs,
+    Groupboxes = Groupboxes,
+    Elements = Elements
 }
 
 return ui

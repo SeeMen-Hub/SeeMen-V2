@@ -10,6 +10,6 @@ end
 
 if ui == nil then return end
 
-ui.SpeedSlider:OnChanged(function(value)
+ui.Elements.Main.SpeedSlider:OnChanged(function(value)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
 end)
