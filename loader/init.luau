@@ -1,9 +1,9 @@
-_G.Library = loadstring(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/deividcomsono/Obsidian/refs/heads/main/Library.lua"))()
+getgenv().Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/refs/heads/main/Library.lua"))()
 
-local GDir = loadstring(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/SeeMen-Hub/SeeMen-V2/refs/heads/main/loader/gameDirectory.luau"))()
+local GDir = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/SeeMen-Hub/SeeMen-V2/refs/heads/main/loader/gameDirectory.luau"))()
 
 if GDir[game.PlaceId] then
-    loadstring(game:GetService("HttpService"):GetAsync(GDir[game.PlaceId]))()
+    loadstring(game:HttpGetAsync(GDir[game.PlaceId]))()
 else
-    loadstring(game:GetService("HttpService"):GetAsync(GDir[0]))()
+    loadstring(game:HttpGetAsync(GDir[0]))()
 end
