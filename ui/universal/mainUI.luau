@@ -1,4 +1,4 @@
-local Window = getgenv().Library:CreateWindow({
+local Window = _G.Library:CreateWindow({
     Title = "mspaint",
     Footer = "version: example",
     Icon = 95816097006870,
@@ -23,9 +23,7 @@ local Groupboxes = {
 
 local Elements = {
     Debug = {
-        killButton = Groupboxes.Debug.LeftGroupBox:AddButton("Kill UI", function()
-            Window.Parent = nil
-        end)
+        
     },
     Main = {
         SpeedSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Speed Slider", {
