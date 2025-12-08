@@ -17,7 +17,7 @@ local Groupboxes = {
         LeftGroupBox = Tabs.Debug:AddLeftGroupbox("Left Groupbox", "wrench")
     },
     Main = {
-        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Player", "user")
+        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Player", "user"),
     },
     UISettings = {}
 }

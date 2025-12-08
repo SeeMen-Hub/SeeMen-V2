@@ -19,6 +19,8 @@ end
 
 -- Passes the player and character to callback (other players)
 function plrfuncs.onCharacterAdded(callback)
+    assert(typeof(callback) == "function", "onCharacterAdded expects a function")
+
     return plrfuncs.onPlayerJoin(function(player)
         if player == LocalPlayer then return end
         if player.Character then
@@ -29,6 +31,15 @@ function plrfuncs.onCharacterAdded(callback)
             callback(player, character)
         end)
     end)
+end
+
+function plrfuncs.otherPlayers(callback)
+    assert(typeof(callback) == "function", "allPlayers expects a function")
+
+    for _, plr in Players:GetPlayers() do
+        if plr == LocalPlayer then continue end
+        callback(plr)
+    end
 end
 
 -- Passes the localplayer's character to callback
