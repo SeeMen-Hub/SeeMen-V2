@@ -8,7 +8,7 @@ local humanoid : Humanoid? = nil
 
 -- Speed
 local speedEnabled : boolean = false
-local speedValue : number = 32
+local speedValue : number = 16
 local defaultSpeed : number = 16
 
 plrFuncs.localOnCharacterAdded(function(character)
