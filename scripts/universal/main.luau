@@ -17,6 +17,3 @@ end)
 ui.Elements.Main.SpeedSlider:OnChanged(function(value)
     getgenv().Movement.setSpeed(value)
 end)
-
-getgenv().Movement.setSpeed(ui.Elements.Main.SpeedSlider.Value)
-print(ui.Elements.Main.SpeedSlider.Value)
