@@ -28,56 +28,6 @@ local bodyVelocity : BodyVelocity? = nil
 local bodyGyro : BodyGyro? = nil
 local flyConnection : RBXScriptConnection? = nil
 
-plrFuncs.localOnCharacterAdded(function(character)
-	humanoid = character:WaitForChild("Humanoid")
-    rootPart = character:WaitForChild("HumanoidRootPart")
-	humanoid.WalkSpeed = speedEnabled and speedValue or defaultSpeed
-    humanoid.UseJumpPower = true
-	humanoid.JumpPower = jumpEnabled and jumpPowerValue or defaultJumpPower
-    flyEnabled = false
-end)
-
-function movement.setSpeedState(state : boolean)
-	assert(typeof(state) == "boolean", "setState expects a boolean")
-
-	speedEnabled = state
-
-	if humanoid then
-		humanoid.WalkSpeed = speedEnabled and speedValue or defaultSpeed
-	end
-end
-
-function movement.setSpeed(speed : number)
-	assert(typeof(speed) == "number", "setSpeed expects a number")
-
-	speedValue = speed
-
-	if speedEnabled and humanoid then
-		humanoid.WalkSpeed = speedValue
-	end
-end
-
-function movement.setJumpState(state : boolean)
-	assert(typeof(state) == "boolean", "setState expects a boolean")
-
-	jumpEnabled = state
-
-	if humanoid then
-		humanoid.UseJumpPower = true
-		humanoid.JumpPower = jumpEnabled and jumpPowerValue or defaultJumpPower
-	end
-end
-
-function movement.setJumpPower(power : number)
-	assert(typeof(power) == "number", "setPower expects a number")
-
-	jumpPowerValue = power
-
-	if jumpEnabled and humanoid then
-		humanoid.JumpPower = jumpPowerValue
-	end
-end
-
 local function startFly()
 	if not rootPart then return end
 
@@ -119,6 +69,60 @@ local function stopFly()
 	if bodyGyro then
 		bodyGyro:Destroy()
 		bodyGyro = nil
+	end
+end
+
+plrFuncs.localOnCharacterAdded(function(character)
+	humanoid = character:WaitForChild("Humanoid")
+    rootPart = character:WaitForChild("HumanoidRootPart")
+	humanoid.WalkSpeed = speedEnabled and speedValue or defaultSpeed
+    humanoid.UseJumpPower = true
+	humanoid.JumpPower = jumpEnabled and jumpPowerValue or defaultJumpPower
+    if flyEnabled then
+        startFly()
+    else
+        stopFly()
+    end
+end)
+
+function movement.setSpeedState(state : boolean)
+	assert(typeof(state) == "boolean", "setState expects a boolean")
+
+	speedEnabled = state
+
+	if humanoid then
+		humanoid.WalkSpeed = speedEnabled and speedValue or defaultSpeed
+	end
+end
+
+function movement.setSpeed(speed : number)
+	assert(typeof(speed) == "number", "setSpeed expects a number")
+
+	speedValue = speed
+
+	if speedEnabled and humanoid then
+		humanoid.WalkSpeed = speedValue
+	end
+end
+
+function movement.setJumpState(state : boolean)
+	assert(typeof(state) == "boolean", "setState expects a boolean")
+
+	jumpEnabled = state
+
+	if humanoid then
+		humanoid.UseJumpPower = true
+		humanoid.JumpPower = jumpEnabled and jumpPowerValue or defaultJumpPower
+	end
+end
+
+function movement.setJumpPower(power : number)
+	assert(typeof(power) == "number", "setPower expects a number")
+
+	jumpPowerValue = power
+
+	if jumpEnabled and humanoid then
+		humanoid.JumpPower = jumpPowerValue
 	end
 end
 
