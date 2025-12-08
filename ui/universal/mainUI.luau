@@ -3,6 +3,7 @@ local Window = getgenv().Library:CreateWindow({
     Footer = "version: example",
     Icon = 95816097006870,
     NotifySide = "Right",
+    ToggleKeybind = Enum.KeyCode.RightShift
 })
 
 local Tabs = {
@@ -16,7 +17,7 @@ local Groupboxes = {
         LeftGroupBox = Tabs.Debug:AddLeftGroupbox("Left Groupbox", "wrench")
     },
     Main = {
-        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Left Groupbox", "wrench")
+        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Player", "user")
     },
     UISettings = {}
 }
