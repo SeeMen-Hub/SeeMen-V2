@@ -25,3 +25,11 @@ end)
 ui.Elements.Main.JumpSlider:OnChanged(function(value)
     getgenv().Movement.setJumpPower(value)
 end)
+
+ui.Elements.Main.FlyToggle:OnChanged(function(value)
+    getgenv().Movement.setFlyState(value)
+end)
+
+ui.Elements.Main.FlySlider:OnChanged(function(value)
+    getgenv().Movement.setFlySpeed(value)
+end)

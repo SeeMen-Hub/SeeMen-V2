@@ -43,12 +43,23 @@ local Elements = {
             Default = false
         }),
         JumpSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Jump Slider", {
-            Text = "Jump Power",
+            Text = "Power",
             Default = 50,
             Min = 0,
             Max = 100,
             Rounding = 0
-        })
+        }),
+        FlyToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Fly Toggle", {
+            Text = "Fly",
+            Default = false
+        }),
+        FlySlider = Groupboxes.Main.LeftGroupBox:AddSlider("Fly Slider", {
+            Text = "Speed",
+            Default = 50,
+            Min = 0,
+            Max = 100,
+            Rounding = 0
+        }),
     },
     UISettings = {}
 }
