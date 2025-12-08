@@ -31,5 +31,5 @@ ui.Elements.Main.FlyToggle:OnChanged(function(value)
 end)
 
 ui.Elements.Main.FlySlider:OnChanged(function(value)
-    getgenv().Movement.setFlySpeed(value)
+    getgenv().Movement.setFlySpeed(value/10)
 end)

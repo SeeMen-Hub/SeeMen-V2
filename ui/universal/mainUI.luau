@@ -55,9 +55,9 @@ local Elements = {
         }),
         FlySlider = Groupboxes.Main.LeftGroupBox:AddSlider("Fly Slider", {
             Text = "Speed",
-            Default = 50,
+            Default = 5,
             Min = 0,
-            Max = 100,
+            Max = 10,
             Rounding = 0
         }),
     },

@@ -25,7 +25,7 @@ local defaultJumpPower: number = 50
 
 -- Fly
 local flyEnabled: boolean = false
-local flySpeedValue: number = 1
+local flySpeedValue: number = 0.5
 
 local function flyLoop()
 	if not character or not rootPart or not humanoid then return end
