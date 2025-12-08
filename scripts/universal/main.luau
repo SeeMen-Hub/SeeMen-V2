@@ -10,6 +10,8 @@ end
 
 if ui == nil then error("No UI loaded") end
 
+getgenv().Movement.setSpeed(ui.Elements.Main.SpeedSlider.Value)
+
 ui.Elements.Main.SpeedToggle:OnChanged(function(value)
     getgenv().Movement.setSpeedState(value)
 end)
