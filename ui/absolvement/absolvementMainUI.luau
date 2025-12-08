@@ -1,6 +1,6 @@
 local Window = getgenv().Library:CreateWindow({
     Title = "SeeMen",
-    Footer = "version: example",
+    Footer = "Absolvement",
     Icon = 95816097006870,
     NotifySide = "Right",
     ToggleKeybind = Enum.KeyCode.RightShift
