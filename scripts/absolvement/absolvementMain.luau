@@ -2,6 +2,8 @@ local UIDir = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Se
 
 local ui = nil
 
+print(game.PlaceId)
+
 if UIDir[game.PlaceId] then
     ui = loadstring(game:HttpGetAsync(UIDir[game.PlaceId]))()
 else
