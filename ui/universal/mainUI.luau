@@ -27,6 +27,10 @@ local Elements = {
         
     },
     Main = {
+        SpeedToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Speed Toggle", {
+            Text = "Speed",
+            Default = false
+        }),
         SpeedSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Speed Slider", {
             Text = "Speed",
             Default = 16,

@@ -10,6 +10,10 @@ end
 
 if ui == nil then error("No UI loaded") end
 
+ui.Elements.Main.SpeedToggle:OnChanged(function(value)
+    getgenv().Movement.setSpeedState(value)
+end)
+
 ui.Elements.Main.SpeedSlider:OnChanged(function(value)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    getgenv().Movement.setSpeed(value)
 end)
