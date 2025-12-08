@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
 
 local plrFuncs = getgenv().Players
 
@@ -7,85 +8,110 @@ local LocalPlayer = Players.LocalPlayer
 
 local movement = {}
 
-local humanoid : Humanoid? = nil
+local humanoid: Humanoid? = nil
+local rootPart: BasePart? = nil
+local character: Model? = nil
+local Camera = workspace.CurrentCamera
 
 -- Speed
-local speedEnabled : boolean = false
-local speedValue : number = 16
-local defaultSpeed : number = 16
+local speedEnabled: boolean = false
+local speedValue: number = 16
+local defaultSpeed: number = 16
 
 -- Jump
-local jumpEnabled : boolean = false
-local jumpPowerValue : number = 50
-local defaultJumpPower : number = 50
+local jumpEnabled: boolean = false
+local jumpPowerValue: number = 50
+local defaultJumpPower: number = 50
 
 -- Fly
-local flyEnabled : boolean = false
-local flySpeedValue : number = 50
-local rootPart : BasePart? = nil
+local flyEnabled: boolean = false
+local flySpeedValue: number = 1
 
-local bodyVelocity : BodyVelocity? = nil
-local bodyGyro : BodyGyro? = nil
-local flyConnection : RBXScriptConnection? = nil
+local function flyLoop()
+	if not character or not rootPart or not humanoid then return end
+
+	local hum = humanoid
+	local root = rootPart
+
+	hum.PlatformStand = true
+	local currentCF = root.CFrame
+
+	while flyEnabled
+		and character
+		and character.Parent
+		and root.Parent
+		and hum.Parent
+	do
+		task.wait()
+
+		local add = Vector3.new(0, 0, 0)
+
+		if UIS:IsKeyDown(Enum.KeyCode.W) then add += Camera.CFrame.LookVector end
+		if UIS:IsKeyDown(Enum.KeyCode.S) then add -= Camera.CFrame.LookVector end
+		if UIS:IsKeyDown(Enum.KeyCode.D) then add += Camera.CFrame.RightVector end
+		if UIS:IsKeyDown(Enum.KeyCode.A) then add -= Camera.CFrame.RightVector end
+		if UIS:IsKeyDown(Enum.KeyCode.E) then add += Camera.CFrame.UpVector end
+		if UIS:IsKeyDown(Enum.KeyCode.Q) then add -= Camera.CFrame.UpVector end
+
+		if add.Magnitude > 0 then
+			add = add.Unit * flySpeedValue
+		end
+
+		root.AssemblyLinearVelocity = Vector3.zero
+		root.AssemblyAngularVelocity = Vector3.zero
+
+		currentCF += add
+		root.CFrame = CFrame.lookAt(
+			currentCF.Position,
+			currentCF.Position + (Camera.CFrame.LookVector * 2)
+		)
+	end
+
+	if hum and hum.Parent then
+		hum.PlatformStand = false
+	end
+end
 
 local function startFly()
-	if not rootPart then return end
+	if not character then return end
 
-	bodyVelocity = Instance.new("BodyVelocity")
-	bodyVelocity.MaxForce = Vector3.new(1e9, 1e9, 1e9)
-	bodyVelocity.Velocity = Vector3.zero
-	bodyVelocity.Parent = rootPart
+	rootPart = character:FindFirstChild("HumanoidRootPart")
+		or character:WaitForChild("HumanoidRootPart")
 
-	bodyGyro = Instance.new("BodyGyro")
-	bodyGyro.MaxTorque = Vector3.new(1e9, 1e9, 1e9)
-	bodyGyro.CFrame = rootPart.CFrame
-	bodyGyro.Parent = rootPart
+	humanoid = character:FindFirstChildOfClass("Humanoid")
+		or character:WaitForChild("Humanoid")
 
-	flyConnection = RunService.RenderStepped:Connect(function()
-		if not rootPart then return end
+	if not rootPart or not humanoid then return end
 
-		local camera = workspace.CurrentCamera
-		local moveDir = humanoid and humanoid.MoveDirection or Vector3.zero
-
-		bodyVelocity.Velocity =
-			(camera.CFrame.RightVector * moveDir.X +
-			camera.CFrame.LookVector * moveDir.Z) * flySpeedValue
-
-		bodyGyro.CFrame = camera.CFrame
-	end)
+	task.spawn(flyLoop)
 end
 
 local function stopFly()
-	if flyConnection then
-		flyConnection:Disconnect()
-		flyConnection = nil
-	end
+	flyEnabled = false
 
-	if bodyVelocity then
-		bodyVelocity:Destroy()
-		bodyVelocity = nil
-	end
-
-	if bodyGyro then
-		bodyGyro:Destroy()
-		bodyGyro = nil
+	if humanoid and humanoid.Parent then
+		humanoid.PlatformStand = false
 	end
 end
 
-plrFuncs.localOnCharacterAdded(function(character)
-	humanoid = character:WaitForChild("Humanoid")
-    rootPart = character:WaitForChild("HumanoidRootPart")
+plrFuncs.localOnCharacterAdded(function(char)
+	character = char
+	humanoid = char:WaitForChild("Humanoid")
+	rootPart = char:WaitForChild("HumanoidRootPart")
+
 	humanoid.WalkSpeed = speedEnabled and speedValue or defaultSpeed
-    humanoid.UseJumpPower = true
+
+	humanoid.UseJumpPower = true
 	humanoid.JumpPower = jumpEnabled and jumpPowerValue or defaultJumpPower
-    if flyEnabled then
-        startFly()
-    else
-        stopFly()
-    end
+
+	if flyEnabled then
+		startFly()
+	else
+		stopFly()
+	end
 end)
 
-function movement.setSpeedState(state : boolean)
+function movement.setSpeedState(state: boolean)
 	assert(typeof(state) == "boolean", "setState expects a boolean")
 
 	speedEnabled = state
@@ -95,7 +121,7 @@ function movement.setSpeedState(state : boolean)
 	end
 end
 
-function movement.setSpeed(speed : number)
+function movement.setSpeed(speed: number)
 	assert(typeof(speed) == "number", "setSpeed expects a number")
 
 	speedValue = speed
@@ -105,7 +131,7 @@ function movement.setSpeed(speed : number)
 	end
 end
 
-function movement.setJumpState(state : boolean)
+function movement.setJumpState(state: boolean)
 	assert(typeof(state) == "boolean", "setState expects a boolean")
 
 	jumpEnabled = state
@@ -116,7 +142,7 @@ function movement.setJumpState(state : boolean)
 	end
 end
 
-function movement.setJumpPower(power : number)
+function movement.setJumpPower(power: number)
 	assert(typeof(power) == "number", "setPower expects a number")
 
 	jumpPowerValue = power
@@ -126,7 +152,7 @@ function movement.setJumpPower(power : number)
 	end
 end
 
-function movement.setFlyState(state : boolean)
+function movement.setFlyState(state: boolean)
 	assert(typeof(state) == "boolean", "setState expects a boolean")
 
 	flyEnabled = state
@@ -138,12 +164,10 @@ function movement.setFlyState(state : boolean)
 	end
 end
 
--- Sets the fly movement speed
-function movement.setFlySpeed(speed : number)
+function movement.setFlySpeed(speed: number)
 	assert(typeof(speed) == "number", "setSpeed expects a number")
 
 	flySpeedValue = speed
 end
-
 
 return movement
