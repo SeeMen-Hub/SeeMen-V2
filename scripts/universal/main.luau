@@ -17,3 +17,11 @@ end)
 ui.Elements.Main.SpeedSlider:OnChanged(function(value)
     getgenv().Movement.setSpeed(value)
 end)
+
+ui.Elements.Main.JumpToggle:OnChanged(function(value)
+    getgenv().Movement.setJumpState(value)
+end)
+
+ui.Elements.Main.JumpSlider:OnChanged(function(value)
+    getgenv().Movement.setJumpPower(value)
+end)

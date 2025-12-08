@@ -37,6 +37,17 @@ local Elements = {
             Min = 0,
             Max = 100,
             Rounding = 0
+        }),
+        JumpToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Jump Toggle", {
+            Text = "Jump Power",
+            Default = false
+        }),
+        JumpSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Jump Slider", {
+            Text = "Jump Power",
+            Default = 50,
+            Min = 0,
+            Max = 100,
+            Rounding = 0
         })
     },
     UISettings = {}
