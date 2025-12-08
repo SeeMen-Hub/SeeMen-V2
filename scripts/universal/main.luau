@@ -10,6 +10,21 @@ end
 
 if ui == nil then error("No UI loaded") end
 
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/main/addons/SaveManager.lua"))()
+local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/main/addons/ThemeManager.lua"))()
+
+SaveManager:SetLibrary(getgenv().Library)
+ThemeManager:SetLibrary(getgenv().Library)
+
+SaveManager:SetFolder("SeeMen/Absolvement")
+ThemeManager:SetFolder("SeeMen/Absolvement")
+
+SaveManager:BuildConfigSection(ui.Tabs["UI Settings"])
+ThemeManager:ApplyToTab(ui.Tabs["UI Settings"])
+
+SaveManager:LoadAutoloadConfig()
+ThemeManager:LoadDefault()
+
 ui.Elements.Main.SpeedToggle:OnChanged(function(value)
     getgenv().Movement.setSpeedState(value)
 end)
