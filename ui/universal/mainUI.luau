@@ -13,11 +13,9 @@ local Tabs = {
 }
 
 local Groupboxes = {
-    Debug = {
-        LeftGroupBox = Tabs.Debug:AddLeftGroupbox("Left Groupbox", "wrench")
-    },
+    Debug = {},
     Main = {
-        LeftGroupBox = Tabs.Main:AddLeftGroupbox("Player", "user"),
+        PlayerLeftGroupBox = Tabs.Main:AddLeftGroupBox("Player", "user"),
     },
     UISettings = {}
 }
@@ -27,33 +25,33 @@ local Elements = {
         
     },
     Main = {
-        SpeedToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Speed Toggle", {
+        SpeedToggle = Groupboxes.Main.PlayerLeftGroupBox:AddToggle("Speed Toggle", {
             Text = "Speed",
             Default = false
         }),
-        SpeedSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Speed Slider", {
+        SpeedSlider = Groupboxes.Main.PlayerLeftGroupBox:AddSlider("Speed Slider", {
             Text = "Speed",
             Default = 16,
             Min = 0,
             Max = 100,
             Rounding = 0
         }),
-        JumpToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Jump Toggle", {
+        JumpToggle = Groupboxes.Main.PlayerLeftGroupBox:AddToggle("Jump Toggle", {
             Text = "Jump Power",
             Default = false
         }),
-        JumpSlider = Groupboxes.Main.LeftGroupBox:AddSlider("Jump Slider", {
+        JumpSlider = Groupboxes.Main.PlayerLeftGroupBox:AddSlider("Jump Slider", {
             Text = "Power",
             Default = 50,
             Min = 0,
             Max = 100,
             Rounding = 0
         }),
-        FlyToggle = Groupboxes.Main.LeftGroupBox:AddToggle("Fly Toggle", {
+        FlyToggle = Groupboxes.Main.PlayerLeftGroupBox:AddToggle("Fly Toggle", {
             Text = "Fly",
             Default = false
         }),
-        FlySlider = Groupboxes.Main.LeftGroupBox:AddSlider("Fly Slider", {
+        FlySlider = Groupboxes.Main.PlayerLeftGroupBox:AddSlider("Fly Slider", {
             Text = "Speed",
             Default = 5,
             Min = 0,

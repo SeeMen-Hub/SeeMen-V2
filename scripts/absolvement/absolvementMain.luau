@@ -27,3 +27,4 @@ ThemeManager:ApplyToTab(ui.Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
 ThemeManager:LoadDefault()
 
+-- All enemies will fall under workspace.NPCs (assume HumanoidRootPart exists)

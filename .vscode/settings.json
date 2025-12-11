@@ -4,6 +4,7 @@
         "unused-function"
     ],
     "robloxLsp.diagnostics.globals": [
-        "getgenv"
+        "getgenv",
+        "vector"
     ]
 }
